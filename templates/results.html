@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newsletter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="newsletter-container" id="newsletter">
+        <h1 class="newsletter-title">📰 Weekly LinkedIn Newsletter</h1>
+
+        {% if posts %}
+            {% for post in posts %}
+                <div class="post">
+                    {% if post.image %}
+                        <img src="{{ post.image }}" alt="Post image" class="post-image">
+                    {% endif %}
+
+                    <div class="post-summary">
+                        <h2>Summary</h2>
+                        <p>{{ post.summary }}</p>
+                        <a href="{{ post.url }}" target="_blank" class="post-link">🔗 View Original Post</a>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>No LinkedIn posts were successfully processed.</p>
+        {% endif %}
+    </div>
+
+    <div class="copy-container">
+        <button onclick="copyNewsletter()" class="copy-btn">📋 Copy Entire Newsletter</button>
+    </div>
+
+    <script>
+        function copyNewsletter() {
+            const newsletter = document.getElementById('newsletter');
+            const range = document.createRange();
+            range.selectNode(newsletter);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                const successful = document.execCommand('copy');
+                alert(successful ? 'Newsletter copied to clipboard!' : 'Copy failed.');
+            } catch (err) {
+                alert('Your browser does not support copying.');
+            }
+            window.getSelection().removeAllRanges();
+        }
+    </script>
+</body>
+</html>

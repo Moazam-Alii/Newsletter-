@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LinkedIn Newsletter Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>LinkedIn Newsletter Generator</h1>
+        <form action="/results" method="POST">
+            <label for="post_urls">Enter up to 20 LinkedIn Post URLs (one per line):</label><br>
+            <textarea name="post_urls" rows="15" cols="80" placeholder="https://www.linkedin.com/posts/..." required></textarea><br>
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+</body>
+</html>
