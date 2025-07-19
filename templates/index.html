@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <title>LinkedIn Newsletter Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Optional styling improvements */
+        #num_posts {
+            width: 80px;
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+        .link-input {
+            width: 80%;
+            height: 40px;
+            font-size: 14px;
+            padding: 8px;
+        }
+    </style>
     <script>
         function generateInputFields() {
             const numberOfPosts = parseInt(document.getElementById("num_posts").value);
@@ -16,6 +30,7 @@
                 input.name = "post_urls";
                 input.placeholder = `LinkedIn Post URL #${i + 1}`;
                 input.required = true;
+                input.className = "link-input";
                 input.style.display = "block";
                 input.style.marginBottom = "10px";
                 container.appendChild(input);
