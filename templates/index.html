@@ -27,7 +27,7 @@
             for (let i = 0; i < numberOfPosts; i++) {
                 const input = document.createElement("input");
                 input.type = "url";
-                input.name = "post_urls";
+                input.name = "post_urls[]";  // ✅ CHANGED HERE
                 input.placeholder = `LinkedIn Post URL #${i + 1}`;
                 input.required = true;
                 input.className = "link-input";

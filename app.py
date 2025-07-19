@@ -12,14 +12,17 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html')  # if you're using 'start.html', update this name accordingly
 
 @app.route('/results', methods=['POST'])
 def scrape():
-    raw_text = request.form.get("post_urls", "")
-    post_urls = [line.strip() for line in raw_text.splitlines() if line.strip()][:20]
+    # ✅ Get list of post URLs from input fields
+    post_urls = request.form.getlist("post_urls[]")  # This must match name="post_urls[]" in your HTML
 
     print("RAW URLS >>>", post_urls)
+
+    # Limit to 20 URLs just in case
+    post_urls = post_urls[:20]
 
     # Run asyncio event loop to process all URLs
     results = asyncio.run(process_all_posts(post_urls))
@@ -53,4 +56,3 @@ async def process_all_posts(post_urls):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
