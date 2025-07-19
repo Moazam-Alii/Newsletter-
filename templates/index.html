@@ -4,13 +4,42 @@
     <meta charset="UTF-8">
     <title>LinkedIn Newsletter Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function generateInputFields() {
+            const numberOfPosts = parseInt(document.getElementById("num_posts").value);
+            const container = document.getElementById("link_inputs");
+            container.innerHTML = ""; // Clear previous inputs
+
+            for (let i = 0; i < numberOfPosts; i++) {
+                const input = document.createElement("input");
+                input.type = "url";
+                input.name = "post_urls";
+                input.placeholder = `LinkedIn Post URL #${i + 1}`;
+                input.required = true;
+                input.style.display = "block";
+                input.style.marginBottom = "10px";
+                container.appendChild(input);
+            }
+        }
+
+        function validateNumberInput(event) {
+            const value = parseInt(event.target.value);
+            if (value < 1 || value > 20) {
+                alert("Please enter a number between 1 and 20.");
+                event.target.value = "";
+            } else {
+                generateInputFields();
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>LinkedIn Newsletter Generator</h1>
         <form action="/results" method="POST">
-            <label for="post_urls">Enter up to 20 LinkedIn Post URLs (one per line):</label><br>
-            <textarea name="post_urls" rows="15" cols="80" placeholder="https://www.linkedin.com/posts/..." required></textarea><br>
+            <label for="num_posts">How many posts do you want to scrape? (1–20):</label><br>
+            <input type="number" id="num_posts" name="num_posts" min="1" max="20" required oninput="validateNumberInput(event)">
+            <div id="link_inputs"></div>
             <button type="submit">Generate</button>
         </form>
     </div>
