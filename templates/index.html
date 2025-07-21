@@ -5,76 +5,80 @@
     <title>LinkedIn Newsletter Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            padding: 30px;
-        }
-
+        /* Input and layout styling */
         #num_posts {
             width: 80px;
             padding: 5px;
             margin-bottom: 15px;
         }
-
         .link-input {
             width: 80%;
             height: 40px;
             font-size: 14px;
             padding: 8px;
         }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
 
-        /* 🔄 Full-screen loading overlay */
+        /* ✅ Loading overlay styles */
         #loadingOverlay {
-            display: none;
+            display: none; /* Hidden by default */
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background-color: rgba(255, 255, 255, 0.95);
             z-index: 9999;
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             flex-direction: column;
         }
 
-        /* 🔁 Spinner */
-        .spinner {
-            border: 6px solid #ccc;
-            border-top: 6px solid #007bff;
+        .loading-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
             border-radius: 50%;
             width: 60px;
             height: 60px;
             animation: spin 1s linear infinite;
-            margin-bottom: 20px;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Scraping... text */
-        .loading-text {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
     </style>
+</head>
+<body>
+    <div id="loadingOverlay">
+        <div class="loader"></div>
+        <div class="loading-text">Scraping...</div>
+    </div>
+
+    <div class="container" id="main_form">
+        <h1>LinkedIn Newsletter Generator</h1>
+        <form action="/results" method="POST" onsubmit="showLoading(event)">
+            <label for="num_posts">How many posts do you want to scrape? (1–20):</label><br>
+            <input type="number" id="num_posts" name="num_posts" min="1" max="20" required oninput="validateNumberInput(event)">
+            <div id="link_inputs"></div>
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+
     <script>
         function generateInputFields() {
             const numberOfPosts = parseInt(document.getElementById("num_posts").value);
             const container = document.getElementById("link_inputs");
-            container.innerHTML = "";
+            container.innerHTML = ""; // Clear previous inputs
 
             for (let i = 0; i < numberOfPosts; i++) {
                 const input = document.createElement("input");
@@ -100,26 +104,11 @@
         }
 
         function showLoading(event) {
+            event.preventDefault(); // Prevent immediate submit
             document.getElementById("main_form").style.display = "none";
             document.getElementById("loadingOverlay").style.display = "flex";
+            setTimeout(() => event.target.submit(), 100); // Let the loader show, then submit
         }
     </script>
-</head>
-<body>
-    <div class="container">
-        <h1>LinkedIn Newsletter Generator</h1>
-        <form id="main_form" action="/results" method="POST" onsubmit="showLoading(event)">
-            <label for="num_posts">How many posts do you want to scrape? (1–20):</label><br>
-            <input type="number" id="num_posts" name="num_posts" min="1" max="20" required oninput="validateNumberInput(event)">
-            <div id="link_inputs"></div>
-            <button type="submit">Generate</button>
-        </form>
-    </div>
-
-    <!-- 🔄 Fullscreen loading overlay -->
-    <div id="loadingOverlay">
-        <div class="spinner"></div>
-        <div class="loading-text">Scraping…</div>
-    </div>
 </body>
 </html>
