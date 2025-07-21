@@ -5,7 +5,6 @@
     <title>LinkedIn Newsletter Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
-        /* Optional styling improvements */
         #num_posts {
             width: 80px;
             padding: 5px;
@@ -17,6 +16,12 @@
             font-size: 14px;
             padding: 8px;
         }
+        #loading {
+            display: none;
+            font-size: 18px;
+            color: #007bff;
+            margin-top: 20px;
+        }
     </style>
     <script>
         function generateInputFields() {
@@ -27,7 +32,7 @@
             for (let i = 0; i < numberOfPosts; i++) {
                 const input = document.createElement("input");
                 input.type = "url";
-                input.name = "post_urls[]";  // ✅ CHANGED HERE
+                input.name = "post_urls[]";
                 input.placeholder = `LinkedIn Post URL #${i + 1}`;
                 input.required = true;
                 input.className = "link-input";
@@ -46,17 +51,29 @@
                 generateInputFields();
             }
         }
+
+        function showLoading(event) {
+            const form = document.getElementById("main_form");
+            const loading = document.getElementById("loading");
+            form.style.display = "none";         // Hide form
+            loading.style.display = "block";     // Show loading message
+        }
     </script>
 </head>
 <body>
     <div class="container">
         <h1>LinkedIn Newsletter Generator</h1>
-        <form action="/results" method="POST">
+        <form id="main_form" action="/results" method="POST" onsubmit="showLoading(event)">
             <label for="num_posts">How many posts do you want to scrape? (1–20):</label><br>
             <input type="number" id="num_posts" name="num_posts" min="1" max="20" required oninput="validateNumberInput(event)">
             <div id="link_inputs"></div>
             <button type="submit">Generate</button>
         </form>
+
+        <!-- 🔄 Loading message -->
+        <div id="loading">
+            🔄 Processing your request... Please wait.
+        </div>
     </div>
 </body>
 </html>
