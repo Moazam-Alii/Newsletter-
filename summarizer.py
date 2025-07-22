@@ -7,8 +7,23 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def summarize_post(text):
     prompt = f"""
-Write a 2–3 line summary of the following LinkedIn post content. Make it informative, keep the tone professional, and avoid repeating the whole post.
+You are an expert newsletter curator. Your goal is to extract short, punchy, direct summaries from LinkedIn posts for a B2B tech newsletter.
 
+Instructions:
+
+Summarize the core idea in 1–2 short sentences.
+
+Make it concise, impactful, and reader-friendly.
+
+Use a tone that's insightful and confident, not explanatory.
+
+Do not describe the LinkedIn post or the author.
+
+Do not mention LinkedIn, the post, or interactions.
+
+Avoid generic phrasing like "The post explains..."
+
+Focus on the core insight or myth-busting message.
 Post Content:
 {text}
 """
