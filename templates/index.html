@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LinkedIn Newsletter Generator</title>
+    <title>Linkedin Newsletter Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         /* Input and layout styling */
@@ -64,7 +64,7 @@
     </div>
 
     <div class="container" id="main_form">
-        <h1>LinkedIn Newsletter Generator</h1>
+        <h1>Linkedin Newsletter Generator</h1>
         <form action="/results" method="POST" onsubmit="showLoading(event)">
             <label for="num_posts">How many posts do you want to scrape? (1–20):</label><br>
             <input type="number" id="num_posts" name="num_posts" min="1" max="20" required oninput="validateNumberInput(event)">
