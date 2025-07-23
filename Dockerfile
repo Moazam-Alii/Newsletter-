@@ -30,3 +30,4 @@ ENV FLASK_ENV=production
 
 # Run the app
 CMD ["flask", "run", "--host=0.0.0.0"]
+

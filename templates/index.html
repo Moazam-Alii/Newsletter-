@@ -94,7 +94,8 @@
 
         function validateNumberInput(event) {
             const value = parseInt(event.target.value);
-            if (value < 1 || value > 20) {
+            if (value < 1 || value > 20) { 
+                
                 alert("Please enter a number between 1 and 20.");
                 event.target.value = "";
             } else {

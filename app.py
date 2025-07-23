@@ -16,15 +16,13 @@ def index():
 
 @app.route('/results', methods=['POST'])
 def scrape():
-    # ✅ Get list of post URLs from input fields
+
     post_urls = request.form.getlist("post_urls[]")  # This must match name="post_urls[]" in your HTML
 
     print("RAW URLS >>>", post_urls)
 
-    # Limit to 20 URLs just in case
     post_urls = post_urls[:20]
 
-    # Run asyncio event loop to process all URLs
     results = asyncio.run(process_all_posts(post_urls))
 
     print("RESULTS >>>", results)
