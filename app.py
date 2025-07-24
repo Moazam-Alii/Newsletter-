@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 from scraper import scrape_post_content
 from cleaner import clean_post_text
 from summarizer import summarize_post
+from heading import generate_heading_from_summary
+
 from dotenv import load_dotenv
 import asyncio
 import os
@@ -41,7 +43,10 @@ async def process_all_posts(post_urls):
             cleaned = clean_post_text(content)
             summary = summarize_post(cleaned)
 
+            heading = generate_heading_from_summary(summary)
+
             results.append({
+                'heading': heading,
                 'summary': summary,
                 'image': image_urls[0] if image_urls else None,
                 'url': url
