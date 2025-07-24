@@ -7,19 +7,23 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def summarize_post(text):
     prompt = f"""
-You are an expert newsletter curator.
-
-Your job is to generate:
-1. A catchy, engaging **heading** (3–6 words) suitable for newsletters (bold text).
-2. A short, punchy **summary** in 1–2 sentences. Avoid describing the post, author, or platform.
+You are an expert newsletter curator. 
+Your goal is to extract short, punchy, direct summaries from LinkedIn posts for a B2B tech newsletter.
 
 Instructions:
-- Heading should be bold and appear on the first line.
-- Summary should start from a new line.
-- Use a confident, insightful tone.
-- Do not mention LinkedIn, posts, or authors.
-- Avoid generic phrases like "This post discusses..."
+Summarize the core idea in 1–2 short sentences.
 
+Make it concise, impactful, and reader-friendly.
+
+Use a tone that's insightful and confident, not explanatory.
+
+Do not describe the LinkedIn post or the author.
+
+Do not mention LinkedIn, the post, or interactions.
+
+Avoid generic phrasing like "The post explains..."
+
+Focus on the core insight or myth-busting message.
 Post Content:
 {text}
 """
@@ -28,13 +32,7 @@ Post Content:
         messages=[{"role": "user", "content": prompt}],
         temperature=0.5
     )
-    
-    output = response.choices[0].message.content.strip()
+    return response.choices[0].message.content.strip()
 
-    # Split heading and summary
-    lines = output.split('\n')
-    heading = next((line.strip() for line in lines if line.strip().startswith("**")), "No Heading")
-    summary = "\n".join([line.strip() for line in lines if not line.strip().startswith("**")])
 
-    print(f"{heading}\n{summary}")
-    return heading, summary
+
