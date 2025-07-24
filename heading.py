@@ -1,7 +1,7 @@
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
-
+import re
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
@@ -22,7 +22,10 @@ def generate_heading_from_summary(summary: str) -> str:
             max_tokens=10,
             temperature=0.7,
         )
-        heading = response.choices[0].message.content.strip()
+
+        raw_heading = response.choices[0].message.content.strip()
+        heading = re.sub(r'^["“”\'`]+|["“”\'`]+$', '', raw_heading)
+
         return heading
     except Exception as e:
         import traceback
