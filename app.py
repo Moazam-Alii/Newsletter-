@@ -43,7 +43,7 @@ async def process_all_posts(post_urls):
             cleaned = clean_post_text(content)
             summary = summarize_post(cleaned)
 
-            heading = generate_heading_from_summary(summary)
+            heading = generate_heading_from_summary(cleaned)
 
             results.append({
                 'heading': heading,
