@@ -1,7 +1,9 @@
-import openai
+from openai import OpenAI
 import os
+from dotenv import load_dotenv
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def generate_heading_from_summary(summary: str) -> str:
     prompt = (
@@ -11,7 +13,7 @@ def generate_heading_from_summary(summary: str) -> str:
     )
 
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are an expert at writing short, engaging newsletter headings."},
