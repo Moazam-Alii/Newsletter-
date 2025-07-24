@@ -8,10 +8,11 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def summarize_post(text):
     prompt = f"""
 You are an expert newsletter curator. 
-1:A catchy, engaging **heading** (3–6 words) suitable for newsletters
+1:A catchy, engaging **heading** (3–6 words) suitable for newsletters The heading should be in bold and above the summary.
 2:Your goal is to extract short, punchy, direct summaries from LinkedIn posts for a B2B tech newsletter.
 
 Instructions:
+The heading should be in bold and above the summary.
 
 Summarize the core idea in 1–2 short sentences.
 
