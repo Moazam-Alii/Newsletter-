@@ -13,7 +13,7 @@ You are an expert newsletter curator.
 
 Instructions:
 The heading should be in bold and above the summary.
-
+The summray should start from the new line
 Summarize the core idea in 1–2 short sentences.
 
 Make it concise, impactful, and reader-friendly.
