@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from scraper import scrape_post_content
 from cleaner import clean_post_text
 from summarizer import summarize_post
-from heading import generate_heading_from_summary
+from  summarizer import generate_heading_from_summary
 
 from dotenv import load_dotenv
 import asyncio
