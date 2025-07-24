@@ -22,9 +22,10 @@ def generate_heading_from_summary(summary: str) -> str:
             max_tokens=10,
             temperature=0.7,
         )
-
-        heading = response.choices[0].message['content'].strip()
+        heading = response.choices[0].message.content.strip()
         return heading
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print("❌ Error generating heading:", e)
-        return "Post Summary"
+        return "Post Summaryyy"
