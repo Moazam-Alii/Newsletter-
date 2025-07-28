@@ -29,7 +29,7 @@
 
 1.Add rule: SSH (port 22)
 
-2.Add rule: HTTP (port 80) if needed
+2.Add rule: HTTP (open port 5000),(port 80) if needed
 
 3.Click Launch
 
